@@ -3,8 +3,29 @@
  */
 package org.neuralJava;
 
+/*
+ *
+ * Network Structure. Each neuron is connected to all in previous layer.
+ *
+ * [in] [ReLU] [ReLU] [Sigmoid]
+ * [in] [ReLU] [ReLU]
+ *      [ReLU] [ReLU]
+ *      [ReLU]
+ *
+ */
+
 public class App {
   public static void main(String[] args) {
+
+    int[] layerSizes = { 2, 4, 3, 1 }; // 2 inputs, 2 hidden layers (4 and 2 neurons), 1 output
+    ActivationFunction[] activations = { new ReLU(), new ReLU(), new Sigmoid() };
+
+    NeuralNetwork network = new NeuralNetwork(layerSizes, activations);
+
+    double[] input = { 0.5, -0.2 }; // Example input (x, y)
+    double[] output = network.predict(input);
+
+    System.out.println("Output: " + output[0]); // Should be between 0 and 1 (sigmoid)
 
   }
 }

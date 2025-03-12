@@ -30,4 +30,19 @@ public class Layer {
 
     return outputs;
   }
+
+  public double[] backpropagate(double[] errors, double learningRate) {
+    double[] nextLayerErrors = new double[neurons[0].getWeights().length];
+
+    for (int i = 0; i < neurons.length; i++) {
+      double[] weightGradients = neurons[i].backpropagate(errors[i], learningRate);
+
+      // Accumulate gradients for the previous layer
+      for (int j = 0; j < weightGradients.length; j++) {
+        nextLayerErrors[j] += weightGradients[j] / neurons.length;
+      }
+    }
+
+    return nextLayerErrors;
+  }
 }

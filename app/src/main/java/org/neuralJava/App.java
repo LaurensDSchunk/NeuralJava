@@ -32,6 +32,7 @@ public class App {
 
   public static void main(String[] args) {
     double totalImprovement = 0;
+    double totalAccuracy = 0;
 
     for (int randomSeed = 0; randomSeed < tests; randomSeed++) {
 
@@ -61,10 +62,12 @@ public class App {
       System.out.println("Ending accuracy: " + afterAccuracy * 100.0 + "%\n\n");
 
       totalImprovement += (afterAccuracy - beforeAccuracy);
+      totalAccuracy += afterAccuracy;
     }
 
     // BEAUTIFUL FORMATTING
     System.out.println("------------------\n");
+    System.out.println(String.format("Average Ending Accuracy: %.5f", (totalAccuracy / tests) * 100) + "%");
     System.out.println(String.format("Average improvement: %.5f", (totalImprovement / tests) * 100.0) + "%");
   }
 

@@ -2,6 +2,7 @@ package org.neuralJava;
 
 import org.neuralJava.Utils.*;
 import java.util.Random;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /*
@@ -78,16 +79,40 @@ public class App {
     return new Point(random.nextDouble() * (maxX - minX) + minX, random.nextDouble() * (maxY - minY) + minY);
   }
 
+  public static void labeledDataData(ArrayList<Pair<Point, Boolean>> data) {
+    int truePoints = 0;
+    int falsePoints = 0;
+
+    for (Pair<Point, Boolean> dataPair : data) {
+      if (dataPair.second) {
+        truePoints++;
+      } else {
+        falsePoints++;
+      }
+    }
+
+    System.out.println("True points: " + truePoints + "   False points: " + falsePoints);
+  }
+
   // Creates a set of pairs of points and their associated classified value.
+  // HALF OF THE DATA WILL BE TRUE, THE OTHER HALF WILL BE FALSE
   public static ArrayList<Pair<Point, Boolean>> createLabeledData(int amount) {
     ArrayList<Pair<Point, Boolean>> output = new ArrayList<Pair<Point, Boolean>>();
 
-    // Creates and labels random points then adds them to the output array
-    for (int i = 0; i < amount; i++) {
-      Point point = randomPoint();
-      Boolean result = classify(point);
+    int half = amount / 2;
 
-      output.add(new Pair<>(point, result));
+    while (output.size() < half) {
+      Point point = randomPoint();
+      if (classify(point)) {
+        output.add(new Pair<>(point, true));
+      }
+    }
+
+    while (output.size() < amount) {
+      Point point = randomPoint();
+      if (!classify(point)) {
+        output.add(new Pair<>(point, false));
+      }
     }
 
     return output;

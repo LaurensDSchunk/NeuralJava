@@ -69,7 +69,9 @@ public class App {
   }
 
   public static boolean classify(Point point) {
-    // This classifies points with an X above 5 as in and all others out.
+    // Points in the following regions are true:
+    // 0.5 < x < 0.7
+    // 0.5 < y < 0.8
     if (point.x > 0.5 && point.y > 0.5 && point.y < 0.8 && point.x < 0.7)
       return true;
     return false;
@@ -101,6 +103,7 @@ public class App {
 
     int half = amount / 2;
 
+    // Yes, this is inneficient but I actually dont care enough to change it
     while (output.size() < half) {
       Point point = randomPoint();
       if (classify(point)) {

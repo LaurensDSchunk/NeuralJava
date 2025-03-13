@@ -14,9 +14,9 @@ import java.util.ArrayList;
  *
  * Network Structure. Each neuron is connected to all in previous layer.
  *
- * [in] [ReLU] [Sigmoid]
- * [in] [ReLU]
- *      [ReLU]
+ * [in] [linear] [out]
+ * [in] [linear]
+ *      [linear]
  *
  */
 

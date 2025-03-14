@@ -10,6 +10,7 @@ public class Neuron {
   private double bias;
   private ActivationFunction activationFunction;
 
+  // These are used in the backpropogation
   private double lastInput[];
   private double lastOutput;
 
@@ -23,6 +24,10 @@ public class Neuron {
     }
   }
 
+  /*
+   * Returns the value of the neuron with the input of the ouputs of the previous
+   * neurons
+   */
   public double feedForward(double[] inputs) {
     lastInput = inputs; // Store for backprop
     double sum = bias;
@@ -35,6 +40,7 @@ public class Neuron {
     return lastOutput;
   }
 
+  // Slightly trains the neuron by updating it's weights and bias
   public double[] backpropagate(double error, double learningRate) {
     double delta = error * activationFunction.derivative(lastOutput);
     double[] weightGradients = new double[weights.length];
@@ -51,6 +57,7 @@ public class Neuron {
     return weightGradients;
   }
 
+  // Returns an array of weights that the neuron uses
   public double[] getWeights() {
     return this.weights;
   }

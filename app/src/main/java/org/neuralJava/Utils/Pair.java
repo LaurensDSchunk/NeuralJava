@@ -1,5 +1,9 @@
 package org.neuralJava.Utils;
 
+/*
+ * Utility class to hold two objects in the same place, making things cleaner
+ */
+
 public class Pair<T, U> {
   public T first;
   public U second;

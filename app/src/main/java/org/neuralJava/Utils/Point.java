@@ -1,5 +1,9 @@
 package org.neuralJava.Utils;
 
+/*
+ * Utility class to hold an (X,Y) point
+ */
+
 public class Point {
   public double x;
   public double y;

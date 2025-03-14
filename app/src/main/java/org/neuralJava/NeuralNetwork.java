@@ -4,11 +4,14 @@ import org.neuralJava.Utils.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+// This is the neural network class and is the wrapper around the whole system
 public class NeuralNetwork {
 
   private Layer[] layers;
   private double learningRate;
 
+  // This variable is used to stop the training once the network starts to get
+  // overtrained
   private double lastLoss = Double.MAX_VALUE;
 
   public NeuralNetwork(int[] layerSizes, ActivationFunction[] activations, double learningRate) {
@@ -20,6 +23,7 @@ public class NeuralNetwork {
     }
   }
 
+  // Runs and returns the result of the forward pass of the network
   public double predict(Point input) {
     double[] output = { input.x, input.y }; // If no neurons exist, return the input
 
@@ -30,10 +34,14 @@ public class NeuralNetwork {
     return output[0];
   }
 
+  // This will train the network on the labeled training data for a maximum of
+  // maxEpochs epochs
   public void train(ArrayList<Pair<Point, Boolean>> trainingData, int maxEpochs) {
     for (int epoch = 0; epoch < maxEpochs; epoch++) {
       double totalLoss = 0;
 
+      // Iterates over the training data and runs the backpropogation algorithm,
+      // training the network.
       for (Pair<Point, Boolean> data : trainingData) {
         double expectedOutput = data.second ? 1. : 0.;
         double actualOutput = predict(data.first);
@@ -50,17 +58,20 @@ public class NeuralNetwork {
 
       double averageLoss = totalLoss / trainingData.size();
 
+      // Stops the network from deteriorating
       if (averageLoss > lastLoss) {
         return;
       }
 
       lastLoss = averageLoss;
 
+      // Prints the average loss (innaccuracy) of the network every 10 epochs
       if (epoch % 10 == 0) {
 
         // Prints out log message
         System.out
             .println(String.format("Epoch: %-5d  Average Error: %.5f", epoch, averageLoss));
+        averageLoss = 0;
       }
     }
   }
@@ -73,6 +84,7 @@ public class NeuralNetwork {
     for (Pair<Point, Boolean> data : testingData) {
       double output = predict(data.first);
 
+      // Ouputs over 0.5 are considered true and all others are false
       if ((data.second && output > 0.5) || (!data.second && output <= 0.5)) {
         amountCorrect++;
       }

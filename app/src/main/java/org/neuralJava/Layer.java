@@ -31,6 +31,8 @@ public class Layer {
     return outputs;
   }
 
+  // Backpropagates the errors for all of the neurons in the layer. Returns the
+  // accumulated error to be used by the next layer
   public double[] backpropagate(double[] errors, double learningRate) {
     double[] nextLayerErrors = new double[neurons[0].getWeights().length];
 
